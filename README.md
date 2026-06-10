@@ -21,7 +21,7 @@ A Laravel-based drag-and-drop form builder that allows users to visually constru
 ```bash
 # 1. Clone the repository
 git clone https://github.com/asifyajdankhan/Edunet_Assingment.git
-cd Edunet_Assingment
+cd Frontend UI Dev Assigment
 
 # 2. Install PHP dependencies
 composer install
@@ -93,7 +93,7 @@ The following JSON is produced when the **"Next"** button is clicked after addin
 ## Project Structure
 
 ```
-Edunet_Assingment/
+FRONTEND UI DEV ASSIGMENT/
 ├── app/
 ├── resources/
 │   └── views/        # Blade templates with SortableJS integration
