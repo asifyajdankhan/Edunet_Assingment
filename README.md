@@ -1,64 +1,111 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400"></a></p>
+# Frontend UI Dev Assignment
 
-<p align="center">
-<a href="https://travis-ci.org/laravel/framework"><img src="https://travis-ci.org/laravel/framework.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+**Author:** Md Asif Khan
+**Repository:** https://github.com/asifyajdankhan/Edunet_Assingment
 
-## About Laravel 
+A Laravel-based drag-and-drop form builder that allows users to visually construct forms by dragging field types onto a canvas, reordering them, and exporting the form schema as JSON.
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+---
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+## Setup Steps
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+### Requirements
 
-## Learning Laravel
+- PHP >= 8.1
+- Composer
+- Node.js & npm (for frontend assets)
+- Laravel 10+
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+### Installation
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains over 1500 video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+```bash
+# 1. Clone the repository
+git clone https://github.com/asifyajdankhan/Edunet_Assingment.git
+cd Edunet_Assingment
 
-## Laravel Sponsors
+# 2. Install PHP dependencies
+composer install
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the Laravel [Patreon page](https://patreon.com/taylorotwell).
+# 3. Copy environment file
+cp .env.example .env
 
-### Premium Partners
+# 4. Generate application key
+php artisan key:generate
 
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Cubet Techno Labs](https://cubettech.com)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[Many](https://www.many.co.uk)**
-- **[Webdock, Fast VPS Hosting](https://www.webdock.io/en)**
-- **[DevSquad](https://devsquad.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel/)**
-- **[OP.GG](https://op.gg)**
-- **[WebReinvent](https://webreinvent.com/?utm_source=laravel&utm_medium=github&utm_campaign=patreon-sponsors)**
-- **[Lendio](https://lendio.com)**
+# 5. Run the development server
+php artisan serve
+```
 
-## Contributing
+Visit: **http://127.0.0.1:8000**
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+> No database setup or extra configuration is required. The app runs fully on `php artisan serve`.
 
-## Code of Conduct
+---
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+## DnD Library Choice & Rationale
 
-## Security Vulnerabilities
+**Library Used:** [SortableJS](https://sortablejs.github.io/Sortable/)
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+**Why SortableJS?**
+
+- **Lightweight & dependency-free** — No jQuery or additional libraries needed; works with plain JavaScript.
+- **Touch support out of the box** — Works seamlessly on both desktop and mobile browsers.
+- **Simple API** — Easy to integrate with Laravel Blade templates using a CDN or npm.
+- **Reliable event hooks** — The `onEnd` callback makes it straightforward to capture the updated field order and serialize it into JSON for the "Next" step.
+- **Active maintenance** — Well-documented with a large community, reducing the risk of compatibility issues.
+
+---
+
+## Assumptions Made
+
+- The form builder is a single-page interaction — no backend database persistence is required; the JSON is generated client-side on clicking "Next".
+- Only one form is built per session; there is no multi-form or save/load functionality.
+- The field types available (e.g., Text Input) are pre-defined; custom field types are out of scope.
+- The `required` property defaults to `false` for all newly added fields.
+- The app is intended for demo/assignment purposes and does not include authentication.
+
+---
+
+## Sample JSON Output
+
+The following JSON is produced when the **"Next"** button is clicked after adding fields to the form canvas:
+
+```json
+[
+  {
+    "label": "Text Input",
+    "required": false,
+    "type": "text"
+  }
+]
+```
+
+**Field Reference:**
+
+| Key        | Type    | Description                              |
+|------------|---------|------------------------------------------|
+| `label`    | string  | Display name of the form field           |
+| `required` | boolean | Whether the field is mandatory           |
+| `type`     | string  | Input type (e.g., `text`, `email`, etc.) |
+
+---
+
+## Project Structure
+
+```
+Edunet_Assingment/
+├── app/
+├── resources/
+│   └── views/        # Blade templates with SortableJS integration
+├── routes/
+│   └── web.php       # App routes
+├── public/
+├── .env.example
+└── README.md
+```
+
+---
 
 ## License
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+This project was created as part of the Edunet Foundation assignment.
